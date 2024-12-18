@@ -17,7 +17,7 @@ class ScheduleResource extends Resource
 {
     protected static ?string $model = Schedule::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar';
 
     public static function form(Form $form): Form
     {
@@ -34,8 +34,8 @@ class ScheduleResource extends Resource
                     ->required()
                     ->label('Start Time'),
                 Forms\Components\TimePicker::make('end_date')
-                ->required()
-                ->label('End Time'),
+                    ->required()
+                    ->label('End Time'),
 
             ]);
     }
@@ -45,23 +45,27 @@ class ScheduleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('futsalGround.name')
-                ->label('Futsal Ground'),
+                    ->label('Futsal Ground'),
                 Tables\Columns\TextColumn::make('date')
-                ->date()
-                ->sortable()
-                ->label('Date'),
+                    ->date()
+                    ->sortable()
+                    ->label('Date'),
                 Tables\Columns\TextColumn::make('start_time')
-                ->time()
-                ->label('Start Time'),
+                    ->sortable()
+                    ->time()
+                    ->label('Start Time'),
                 Tables\Columns\TextColumn::make('end_time')
-                ->time()
-                ->label('End Time'),
+                    ->sortable()
+                    ->time()
+                    ->label('End Time'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(), // View action
+                Tables\Actions\EditAction::make(), // Edit action
+                Tables\Actions\DeleteAction::make(), // Delete action
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

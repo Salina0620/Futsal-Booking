@@ -16,6 +16,7 @@ class Vendor extends Model
         'email',
         'phone',
         'address',
+        'is_active',
      ];
     public function futsalGrounds()
     {

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->decimal('total_amount', 8, 2)->nullable(); // Amount based on price per hour
             $table->timestamps();
         });
     }

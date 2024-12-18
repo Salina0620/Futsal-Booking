@@ -18,6 +18,13 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+use App\Filament\Widgets\TotalRevenueWidget;
+use App\Filament\Widgets\TotalStatsWidget;
+use App\Filament\Widgets\RevenueChartWidget;
+use App\Filament\Widgets\RecentBookingsWidget;
+
+use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -28,19 +35,24 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Amber,  // Customize your primary color
-                // Optionally, add secondary or accent colors
+                'primary' => Color::Amber,
                 'secondary' => Color::Blue,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,  // Ensure this is your dashboard page
+                Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,  // Add more widgets if needed
-                Widgets\FilamentInfoWidget::class,
+                TotalStatsWidget::class,
+                RevenueChartWidget::class,
+                RecentBookingsWidget::class,  // Now shows cards
+
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
+            ])
+            ->plugins([
+                FilamentApexChartsPlugin::make(),
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -54,7 +66,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,  // Ensure only authenticated users can access the panel
+                Authenticate::class,
             ]);
     }
 }

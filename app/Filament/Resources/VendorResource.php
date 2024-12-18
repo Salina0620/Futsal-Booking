@@ -14,7 +14,7 @@ class VendorResource extends Resource
 {
     protected static ?string $model = Vendor::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
@@ -54,9 +54,9 @@ class VendorResource extends Resource
             ])
             ->filters([/* Add any filters if needed */])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                // Uncomment if you need a view action
+                Tables\Actions\ViewAction::make(), // View action
+            Tables\Actions\EditAction::make(), // Edit action
+            Tables\Actions\DeleteAction::make(), // Delete action
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

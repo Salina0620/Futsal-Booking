@@ -15,6 +15,7 @@ protected $fillable = [
 'date',
 'start_time',
 'end_time',
+'total_amount',
 ];
 
 
@@ -22,4 +23,16 @@ protected $fillable = [
     {
         return $this->belongsTo(FutsalGround::class);
     }
+    protected static function booted()
+    {
+        static::saving(function ($booking) {
+            $start = strtotime($booking->start_time);
+            $end = strtotime($booking->end_time);
+            $durationInHours = ($end - $start) / 3600;
+
+            // Calculate total amount
+            $booking->total_amount = $durationInHours * $booking->futsalGround->price_per_hour;
+        });
+    }
+
 }

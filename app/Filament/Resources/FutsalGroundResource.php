@@ -46,20 +46,22 @@ class FutsalGroundResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                 ->sortable()
-                ->searchable()
+                // ->searchable()
                 ->label('Ground Name'),
                 Tables\Columns\TextColumn::make('location')
                 ->label('Ground Location'),
                 Tables\Columns\TextColumn::make('price_per_hour')
                 ->label('Price Per Hour'),
                 Tables\Columns\TextColumn::make('vendor.name')
-                ->label('Vender Name'),
+                ->label('Vendor'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(), // View action
+                Tables\Actions\EditAction::make(), // Edit action
+                Tables\Actions\DeleteAction::make(), // Delete action
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
